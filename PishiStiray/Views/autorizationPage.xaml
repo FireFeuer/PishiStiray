@@ -1,0 +1,89 @@
+﻿<Page x:Class="PishiStiray.views.autorizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PishiStiray.views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="autorizationPage"
+      Background="White"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+
+    <Viewbox Stretch="Uniform">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1"
+               VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0"
+              Source="/Resources/logo.png"
+              Height="75"/>
+                <TextBlock Grid.Row="1"
+                   Text="Войти"
+                   HorizontalAlignment="Center"
+                   FontFamily="{StaticResource pwsFont}"
+                   Foreground="Black"/>
+                <TextBox Grid.Row="2"
+                   Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"        
+                          Style="{StaticResource pwsTextBox}"
+                     materialDesign:HintAssist.Hint="Логин"/>
+                <PasswordBox Grid.Row="3"
+                materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource pwsPasswordBox}"
+                materialDesign:HintAssist.Hint="Пароль"/>
+
+                <TextBlock Grid.Row="4"              
+                       Text="{Binding captcha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="5"              
+                       Text="{Binding ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Grid.Row="6"
+                Text="{Binding ErrorMessageButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="RED"/>
+
+                <Button Grid.Row="7"
+                Style="{StaticResource pwsButton}"
+                Command="{Binding SignInCommand}"
+                Content="Войти" Background="#FF498C51" BorderBrush="#FF498C51"/>
+
+                <Button Grid.Row="8"
+                       Foreground="Black"
+                       HorizontalAlignment="Center"
+                       Content="Зарегистрироваться"
+                       FontFamily="{StaticResource pwsFont}"
+                       Background="#00498C51" BorderBrush="#00498C51"
+                       Command="{Binding RegistrationCommand}" Cursor="Hand"/>
+
+                <Button Grid.Row="9"
+                       Foreground="Black"
+                       HorizontalAlignment="Center"
+                       Content="Войти позже"
+                       FontFamily="{StaticResource pwsFont}"
+                       Background="#00498C51" BorderBrush="#00498C51"
+                       Command="{Binding SignInLaterCommand}"/>
+
+
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+
+</Page>

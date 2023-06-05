@@ -1,0 +1,571 @@
+﻿<Page x:Class="PishiStiray.tradePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PishiStiray"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+     
+      mc:Ignorable="d" 
+  
+      d:DesignHeight="450"
+      Background="White"
+      Title="tradePage"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:viewmodel="clr-namespace:PishiStiray.ViewModel"
+      d:DataContext="{d:DesignInstance Type=viewmodel:userListTrade_ViewModel}" Width="1008">
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Viewbox Stretch="Uniform">
+            <Grid Grid.Row="0" Cursor="">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".8*"/>
+                    <ColumnDefinition Width="2.4*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.3*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                       Visibility="{Binding Menu_Vision}"
+                       Text="{Binding Count_products}"
+                       FontFamily="Comic Sans MS" Cursor=""
+                       />
+
+                <ComboBox Grid.Column="3"
+                      Visibility="{Binding order_filter_vision}"
+                      Margin="5"
+                      VerticalAlignment="Bottom"
+                       materialDesign:HintAssist.Hint="Фильтрация"
+                      ItemsSource="{Binding Path=Delivereds}"   
+                      SelectedItem="{Binding Path=SDelivered}"/>
+
+                <TextBox Grid.Column="1"
+                    Width="200px"
+                     Visibility="{Binding Menu_Vision}"
+                     Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
+                     Margin="5"
+                     FontFamily="Comic Sans MS"
+                     VerticalContentAlignment="Bottom"
+                     Style="{StaticResource pwsTextBox}"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     materialDesign:HintAssist.Hint="Поиск"/>
+
+
+                <ComboBox Grid.Column="2"
+                      Visibility="{Binding Menu_Vision}"
+                      Margin="5"
+                      VerticalAlignment="Bottom"
+                      materialDesign:HintAssist.Hint="Сортировка"
+                     ItemsSource="{Binding Path=Costs}"   
+                     SelectedItem="{Binding Path=SCosts, UpdateSourceTrigger=PropertyChanged}" />
+
+                <ComboBox Grid.Column="3"
+                      Visibility="{Binding Menu_Vision}"
+                      Margin="5"
+                      VerticalAlignment="Bottom"
+                       materialDesign:HintAssist.Hint="Фильтрация"
+                      ItemsSource="{Binding Path=Discounts}"   
+                      SelectedItem="{Binding Path=SDiscounts}"/>
+                <Button Grid.Column="5" FontFamily="Comic Sans MS"
+                    Height="40"
+                     
+                Visibility="{Binding orders_visible}"
+                    Command="{Binding Manufacurer_command}" Margin="10,16,0,9" Cursor="Hand">
+                    <Button.Content>
+                        <TextBlock Text="Добавить производителя" TextWrapping="Wrap" TextAlignment="Center" FontSize="12"/>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="4" FontFamily="Comic Sans MS"
+                    Height="40"
+                     
+                Visibility="{Binding orders_visible}"
+                    Command="{Binding Provider_command}" Margin="10,16,0,9" Cursor="Hand">
+                    <Button.Content>
+                        <TextBlock Text="Добавить поставщика" TextWrapping="Wrap" TextAlignment="Center" FontSize="12"/>
+                    </Button.Content>
+                </Button>
+
+                <Button Grid.Column="6" FontFamily="Comic Sans MS" Height="40"
+                    Content="Заказы" FontSize="17"
+                    Visibility="{Binding orders_visible}"
+                    Command="{Binding Orders_command}" Margin="10,16,0,9" Cursor="Hand">
+                </Button>
+                <Button Grid.Column="7" Margin="10,16,0,10" HorizontalAlignment="Left" Width="52"
+                    Visibility="{Binding basket_visible}"
+                    Command="{Binding BasketCommand}">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/free-icon-trolley-cart-8138971.png"/>
+                    </Button.Background>
+
+                </Button>
+                <Menu Grid.Column="8"
+                  Margin="62,5,0,5"
+                  HorizontalAlignment="Left" Width="49">
+                    <MenuItem FontFamily="Comic Sans MS" Width="53" Height="47">
+                        <MenuItem.Header>
+                            <Image Source="\Resources\logo.png" Margin="-7,0,-21,0" Height="37"/>
+                        </MenuItem.Header>
+                        <MenuItem Foreground="White"
+                              Header="{Binding FullName}"
+                              IsEnabled="False"
+                              Opacity="1"/>
+
+                        <Separator Style="{StaticResource MaterialDesignLightSeparator}"
+                               Margin="10 0 10 0"/>
+                        <MenuItem Header="Зарегистрировать менеджера"
+                              Visibility="{Binding adm_reg}"
+                              Command="{Binding RegistrationManager_command}"
+                              FontSize="14"/>
+                        <MenuItem Header="Зарегистрировать администратора"
+                              Visibility="{Binding adm_reg}"
+                              Command="{Binding RegistrationAdmin_command}"
+                              FontSize="14"/>
+                        <MenuItem Header="Выйти"
+                              Command="{Binding SignOutCommand}"
+                              FontSize="14"/>
+                    </MenuItem>
+                    <Menu.Resources>
+                        <SolidColorBrush x:Key="MaterialDesignPaper" Color="{StaticResource pwsAccentedColor}"/>
+                    </Menu.Resources>
+                </Menu>
+            </Grid>
+        </Viewbox>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="677*"/>
+                <ColumnDefinition Width="41*"/>
+                <ColumnDefinition Width="290*"/>
+            </Grid.ColumnDefinitions>
+            <ListView Width="auto"
+                FontFamily="{StaticResource pwsFont}"
+                      ItemsSource="{Binding Products}"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Visibility="{Binding visibility}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.ColumnSpan="3">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+
+                        <MenuItem Header="Добавить в корзину"                               
+                        Command="{Binding AddItem}"
+                                  />
+                        <MenuItem Header="Удалить товар"
+                                      Visibility="{Binding visibility_removeItem}"
+                        Command="{Binding RemoveItemAdm}"/>
+                        <MenuItem Header="Добавить товар"
+                                      Visibility="{Binding visibility_addItem}"
+                        Command="{Binding AddItemAdm}"/>
+                        <MenuItem Header="Изменить товар"
+                                      Visibility="{Binding visibility_changeItem}"
+                        Command="{Binding ChangeItemAdm}"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card
+                                             Padding="8"
+                                             HorizontalContentAlignment="Stretch" Background="{Binding NowDiscount, Converter={StaticResource stringToBrush}}">
+                            <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.01*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="auto"/>
+
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0"
+                                       Source="{Binding Picture}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Width="125"
+                                       Height="125"/>
+
+                                <Grid Grid.Column="1"
+                                      VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0"
+                                               FontWeight="Bold"
+                                               Text="{Binding ProductName}"/>
+                                    <TextBlock Grid.Row="1"
+                                               Text="{Binding Description}"/>
+                                    <TextBlock Grid.Row="3"
+                                               Text="{Binding Manufacturer}"/>
+                                    <TextBlock Grid.Row="2"
+                                               Text="{Binding Cost}"/>
+                                    <TextBlock Grid.Row="2"
+                                               Text="                    ----" 
+                                               Visibility="{Binding visible_line}"/>
+                                    <TextBlock 
+                                        Grid.Row="4"
+                                               Text="{Binding Discount}"
+                                        Visibility="{Binding  amd_reg1}"/>
+                                    <TextBlock Grid.Row="5"                                             
+                                               Text="{Binding ProductArticleNumber}"
+                                               Visibility="{Binding amd_reg1, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Grid.Row="6"
+                                                 Visibility="{Binding amd_reg1}"
+                                               Text="{Binding ProductCategory}"/>
+                                    <TextBlock Grid.Row="7"
+                                               Visibility="{Binding amd_reg1}"
+                                               Text="{Binding Provider}"/>
+                                    <TextBlock Grid.Row="8"
+                                               Visibility="{Binding amd_reg1}"
+                                               Text="{Binding QuantityStock}"/>
+
+
+
+                                </Grid>
+                                <TextBlock Grid.Column="2"                                        
+                                           Text="{Binding NowDiscount}"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="2"                                        
+                                           Text="    % Скидка!"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid
+                  VerticalAlignment="Center" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListView x:Name="linksListView"
+                    Grid.Column="0"
+                    FontFamily="{StaticResource pwsFont}"
+                      ItemsSource="{Binding Products2 }"
+                      SelectedItem="{Binding  Path = SelectedItem1}"
+                      Visibility="{Binding visibility1}"
+                      Panel.ZIndex="{Binding zindex1}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" Cursor="">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <!--<ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Удалить из корзины"
+                        Command="{Binding RemoveItem}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>-->
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card
+                                             Padding="8"
+                                             HorizontalContentAlignment="Stretch" Background="{Binding NowDiscount, Converter={StaticResource stringToBrush}}">
+                                <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0"
+                                       Source="{Binding Picture}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Width="125"
+                                       Height="125"/>
+
+                                    <Grid Grid.Column="1"
+                                      VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                               FontWeight="Bold"
+                                               Text="{Binding ProductName}"/>
+                                        <TextBlock Grid.Row="1"
+                                               Text="{Binding Description}"/>
+                                        <TextBlock Grid.Row="2"
+                                               Text="{Binding Manufacturer}"/>
+                                        <TextBlock Grid.Row="3"
+                                               Text="{Binding Cost}"/>
+                                        <TextBlock Grid.Row="3"
+                                               Text="----" 
+                                               Visibility="{Binding visible_line}"/>
+
+                                    </Grid>
+                                    <TextBlock Grid.Column="2"                                        
+                                           Text="{Binding NowDiscount}"
+                                           VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2"                                        
+                                           Text="    % Скидка!"
+                                           VerticalAlignment="Center"/>
+                                    <Grid Grid.Column="3"
+                                      VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Button
+                                        Grid.Row="0"
+                                        Content= "+"
+                                        Command="{Binding DataContext.PlusCart, ElementName=linksListView}"
+                                        CommandParameter="{Binding DataContext, ElementName=linksListView}"/>
+                                        <!--DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=viewmodel:userListTrade_ViewModel}}"-->
+
+                                        <TextBlock 
+                                           Grid.Row="1"
+                                            Text="{Binding AmountCart}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                            FontFamily="Comic Sans MS"/>
+                                        <Button 
+                                        Grid.Row="2"
+                                        Content= "-"
+                                         Command="{Binding DataContext.MinusCart, ElementName=linksListView}"
+                                        CommandParameter="{Binding DataContext, ElementName=linksListView}"/>
+                                    </Grid>
+                                </Grid>
+
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid
+                  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="805,0,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row ="0" Text="{Binding Total_price}" Visibility="{Binding order_visible}" FontFamily="Comic Sans MS">
+                    </TextBlock>
+                    <TextBlock Grid.Row ="1" Text="{Binding Discounted_price}" Visibility="{Binding order_visible}" FontFamily="Comic Sans MS">
+                    </TextBlock>
+                    <TextBlock Grid.Row ="2" Text="{Binding Total_discount}" Visibility="{Binding order_visible}" FontFamily="Comic Sans MS">
+                    </TextBlock>
+                    <TextBlock Grid.Row ="3" Text="{Binding Total_products}" Visibility="{Binding order_visible}" FontFamily="Comic Sans MS">
+                    </TextBlock>
+                    <ComboBox Grid.Row="4"
+                      Margin="5"
+                      VerticalAlignment="Bottom"
+                       materialDesign:HintAssist.Hint="Пункт выдачи"
+                      Visibility="{Binding pointIssue_visible}"
+                      ItemsSource="{Binding Path=pointIssue}"   
+                      SelectedItem="{Binding Path=SpointIssue}"/>
+                    <Button Grid.Row="5" FontFamily="Comic Sans MS"
+                    Content="Заказать" FontSize="22"
+                    Visibility="{Binding order_visible}"
+                    Command="{Binding Order_command}" Margin="10,17,0,9" Cursor="Hand">
+
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <Grid
+                  VerticalAlignment="Center" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListView x:Name="linksListView1"
+                    SelectedItem="{Binding  Path = SelectedItem_orders}"
+                    Grid.Column="0"
+                    FontFamily="{StaticResource pwsFont}"
+                      ItemsSource="{Binding Orders_list}"
+                    Visibility="{Binding visibility2}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+
+                            <MenuItem Header="Изменить заказ"                               
+                        Command="{Binding ChangeORD}"
+                                  />
+
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card
+                                             Padding="8"
+                                             HorizontalContentAlignment="Stretch" Background="{Binding Count, Converter={StaticResource stringToBrushOrder}}">
+                                <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0"
+                                      VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                               Text="{Binding OrderDate}"/>
+                                        <TextBlock Grid.Row="1"
+                                               Text="{Binding DeliveryDate}"/>
+                                        <TextBlock Grid.Row="2"
+                                               Text="{Binding Status}"/>
+                                        <TextBlock Grid.Row="4"
+                                               Text="{Binding PointIssue}"/>
+                                        <Button 
+                                            Margin="200 1 2 3"
+                                         Width="100px"                                           
+                                         Grid.Row="3"
+                                                                                   
+                                        Content= "Товары"
+                                         Command="{Binding DataContext.View_product, ElementName=linksListView1}"
+                                        CommandParameter="{Binding DataContext, ElementName=linksListView1}"/>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView Grid.Column="1"
+                    FontFamily="{StaticResource pwsFont}"
+                      ItemsSource="{Binding Products_order}"
+                    Visibility="{Binding visibility2}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card
+                                             Padding="8"
+                                             HorizontalContentAlignment="Stretch" Background="{Binding NowDiscount, Converter={StaticResource stringToBrush}}">
+                                <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0"
+                                       Source="{Binding Picture}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Width="125"
+                                       Height="125"/>
+
+                                    <Grid Grid.Column="1"
+                                      VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                               FontWeight="Bold"
+                                               Text="{Binding ProductName}"/>
+                                        <TextBlock Grid.Row="1"
+                                               Text="{Binding Description}"/>
+                                        <TextBlock Grid.Row="2"
+                                               Text="{Binding Cost}"/>
+                                        <TextBlock Grid.Row="3"
+                                              Text="{Binding AmountCart}"/>
+                                    </Grid>
+                                    <TextBlock Grid.Column="2"                                        
+                                           Text="{Binding NowDiscount}"
+                                           VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2"                                        
+                                           Text="    % Скидка!"
+                                           VerticalAlignment="Center"/>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+
+        </Grid>
+        <Grid Grid.Row = "2">
+            <TextBlock Text="{Binding Message}"
+                           Foreground="Red"/>
+        </Grid>
+    </Grid>
+
+
+</Page>
