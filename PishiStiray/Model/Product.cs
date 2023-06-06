@@ -51,4 +51,8 @@ public partial class Product
     }
 
     public virtual ICollection<Order1> Orders { get; } = new List<Order1>();
+    
+    public virtual ICollection<ManufacturersTable> ManufacturersTables { get; } = new List<ManufacturersTable>();
+    
+    public virtual ICollection<SuppliersTable> SuppliersTables { get; } = new List<SuppliersTable>();
 }
